@@ -1,6 +1,6 @@
 #! /d/Python/Python37/python
 
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QGridLayout, QLabel, QComboBox
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QGridLayout, QLabel, QComboBox, QMessageBox
 from PyQt5 import QtGui 
 
 # Application and windows design
@@ -10,7 +10,7 @@ layout = QGridLayout()
 labelsel = QLabel('Selezionare la porta seriale:')
 combosel = QComboBox()
 labelapp = QLabel('IC-7300 Time & Date Sync by IW2NOY')
-buttonsync = QPushButton('Sync IC-7300!')
+buttonsync = QPushButton('Sync IC-7300 !')
 buttonquit = QPushButton('Chiudi')
 layout.addWidget(labelapp, 0,0,1,2)
 labelapp.setFont(QtGui.QFont("Verdana", 12, QtGui.QFont.Bold)) # This use QtGui
@@ -33,6 +33,12 @@ def get_serial():
         combosel.addItem(port.device)
 get_serial()
 
+def msg_alert():
+    alert = QMessageBox()
+    alert.setText(str(combosel.currentText()))
+    alert.exec_()
+
+buttonsync.clicked.connect(msg_alert)
 
 window.show()
 app.exec_()
